@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/danci/AndroidStudioProjects/TestApplication/app/src/main/res/drawable-v21/app_widget_inner_view_background.xml" value="0.21324786324786324" />
         <entry key="..\:/Users/danci/AndroidStudioProjects/TestApplication/app/src/main/res/drawable/Gradient.xml" value="0.29074074074074074" />
         <entry key="..\:/Users/danci/AndroidStudioProjects/TestApplication/app/src/main/res/drawable/bck_grd.xml" value="0.17708333333333334" />
         <entry key="..\:/Users/danci/AndroidStudioProjects/TestApplication/app/src/main/res/drawable/grade.xml" value="0.2552083333333333" />
@@ -13,7 +14,8 @@
         <entry key="..\:/Users/danci/AndroidStudioProjects/TestApplication/app/src/main/res/drawable/minute_hand.xml" value="0.67" />
         <entry key="..\:/Users/danci/AndroidStudioProjects/TestApplication/app/src/main/res/drawable/second_hand.xml" value="0.75" />
         <entry key="..\:/Users/danci/AndroidStudioProjects/TestApplication/app/src/main/res/drawable/test.xml" value="0.2552083333333333" />
-        <entry key="..\:/Users/danci/AndroidStudioProjects/TestApplication/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/danci/AndroidStudioProjects/TestApplication/app/src/main/res/layout/activity_main.xml" value="0.72" />
+        <entry key="..\:/Users/danci/AndroidStudioProjects/TestApplication/app/src/main/res/layout/clock_widget.xml" value="0.536" />
       </map>
     </option>
   </component>

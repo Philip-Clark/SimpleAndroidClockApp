@@ -18,10 +18,10 @@
 
             <!-- SHADOW -->
             <item
-                android:bottom="178dp"
-                android:top="18dp"
-                android:right="2dp"
-                android:left="2dp"
+                android:bottom="176dp"
+                android:right="5dp"
+                android:left="5dp"
+                android:top="27dp"
                 >
                 <shape
                     android:shape="rectangle"
@@ -41,32 +41,25 @@
 
             <!-- shadow inner -->
             <item
-                android:bottom="180dp"
-                android:top="20dp"
-                android:right="4dp"
-                android:left="4dp">
-                <shape
-                    android:shape="rectangle"
-                    android:useLevel="false"
-                    >
+                android:bottom="177dp"
+                android:top="28dp"
+                android:right="6dp"
+                android:left="6dp">
+                <shape android:layout_height="wrap_content" android:shape="rectangle" android:useLevel="false">
 
-                    <solid
-                        android:color="@color/shadow2"
-                        />
+                    <solid android:color="@color/shadow2" />
 
-                    <corners
-                        android:radius="100dp"
-                        />
+                    <corners android:radius="100dp" />
 
                 </shape>
             </item>
 
             <!-- Main -->
             <item
-                android:bottom="182dp"
-                android:right="6dp"
-                android:left="6dp"
-                android:top="22dp"
+                android:bottom="178dp"
+                android:right="7dp"
+                android:left="7dp"
+                android:top="29dp"
                 >
 
                 <shape
@@ -79,8 +72,8 @@
                         />
 
                     <size
-                        android:width="5dp"
-                        android:height="30dp"
+                        android:width="1dp"
+                        android:height="15dp"
                         />
 
                     <corners

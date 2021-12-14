@@ -6,11 +6,14 @@ import android.widget.TextView
 import java.text.SimpleDateFormat
 import java.util.*
 import android.os.Handler
-import android.view.View
-import android.view.ViewGroup
 import android.view.animation.*
 import android.widget.ImageView
-import androidx.constraintlayout.widget.ConstraintLayout
+import android.widget.TextSwitcher
+import android.R
+
+import android.media.MediaPlayer
+import android.view.View
+import androidx.fragment.app.FragmentActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -35,6 +38,14 @@ class MainActivity : AppCompatActivity() {
     var sec = SimpleDateFormat("ss")
     var S : Float = ((sec.format(t)).toFloat()).toFloat()
 
+    var timeFormatted: String = format.format(t)
+
+    var mp: MediaPlayer = MediaPlayer()
+
+
+
+    var newTime = timeFormatted
+    var oldTime: String = ""
     private val runnable = Runnable {
         var hourHand : ImageView = findViewById<ImageView>(biff.project.R.id.HourHand)
         var minHand : ImageView = findViewById<ImageView>(biff.project.R.id.MinuteHand)
@@ -44,32 +55,57 @@ class MainActivity : AppCompatActivity() {
 
         currentTime = Calendar.getInstance()
         t = currentTime.time
-        var timeFormatted: String = format.format(t)
-        findViewById<TextView>(biff.project.R.id.clock).text = timeFormatted
+        timeFormatted = format.format(t)
+
+        val switcher = findViewById<TextSwitcher>(biff.project.R.id.Switcher)
+
+        switcher.setInAnimation(this,biff.project.R.anim.clock_in)
+        switcher.setOutAnimation(this,biff.project.R.anim.clock_out)
+
+
+
+
+        switcher.setText(timeFormatted)
+
+
 
         updateTimes()
 
 
-        if(H > lastH){
-            lastH = H
 
-            animateHands(hourHand,30,ValueAnimator.ofFloat(hourHand.rotation),3F,900)
+
+
+
+
+        if(H != lastH){
+
+
+            animateHands(hourHand,(H-lastH) * 30,ValueAnimator.ofFloat(hourHand.rotation),1F,900)
+            lastH = H
         }
 
         if(M != lastM) {
-            lastM = M
 
-            animateHands(minHand, 6, ValueAnimator.ofFloat(minHand.rotation),2F,600)
+            animateHands(minHand, (M-lastM) * 6, ValueAnimator.ofFloat(minHand.rotation),1F,600)
+            lastM = M
         }
 
         if(S != lastS) {
+//            mp.start()
+            if(lastS == 59F && S == 0F) {
+                animateHands(secHand, 6F, ValueAnimator.ofFloat(secHand.rotation), -2F, 100)
+            }else{
+                animateHands(secHand, (S - lastS) * 6, ValueAnimator.ofFloat(secHand.rotation), -2F, 100)
+
+            }
             lastS = S
-            animateHands(secHand,6,ValueAnimator.ofFloat(secHand.rotation),3F,50)
+
         }
 
 
-        updateHands()
 
+
+        updateHands()
         if (started) {
             start(100)
         }
@@ -83,6 +119,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(biff.project.R.layout.activity_main)
 
         val targetW = findViewById<ImageView>(biff.project.R.id.Circle).getLayoutParams().width
+
+        mp = MediaPlayer.create(this,biff.project.R.raw.sound)
+        mp.setVolume(0.8F,0.8F)
 
         H = 0F
         M = 0F
@@ -109,7 +148,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun animateHands(view: ImageView , increment : Int, animator : ValueAnimator, spring : Float, duration : Long){
+    private fun animateHands(view: ImageView, increment: Float, animator: ValueAnimator, spring: Float, duration: Long){
         var SR = view.rotation
         animator.setDuration(duration)
         animator.interpolator = OvershootInterpolator(spring)
@@ -117,11 +156,14 @@ class MainActivity : AppCompatActivity() {
         animator.addUpdateListener { valAni ->
 
             val v = valAni.animatedFraction
-            view.rotation = (SR + (increment * v))
+            view.rotation = SR + (increment * v)
 
         }
         animator.start()
     }
+
+
+
 
     private fun updateTimes(){
         H = ((hour.format(t)).toFloat()).toFloat()
@@ -132,23 +174,27 @@ class MainActivity : AppCompatActivity() {
     private fun updateHands(){
 
 
-
         updateTimes()
+        lastH = H
+        lastM = M
+        lastS = S
+
         findViewById<ImageView>(biff.project.R.id.HourHand).rotation = (H * 30)
         findViewById<ImageView>(biff.project.R.id.MinuteHand).rotation = (M * 6)
         findViewById<ImageView>(biff.project.R.id.SecondHand).rotation = (S * 6)
+
     }
 
     override fun onPause() {
         super.onPause()
         stop()
+        mp.release()
     }
 
     override fun onResume() {
-        super.onResume()
         updateHands()
-
-        start(0)
+        super.onResume()
+        start(10)
     }
 
 

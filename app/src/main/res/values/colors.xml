@@ -13,5 +13,5 @@
     <color name="shadow1">#0D000000</color>
     <color name="shadow2">#0D000000</color>
     <color name="hand">#72768491</color>
-    <color name="ClockText">#54FFFFFF</color>
+    <color name="ClockText">#3CFFFFFF</color>
 </resources>

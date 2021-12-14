@@ -9,6 +9,11 @@ import android.os.Handler
 import android.view.animation.*
 import android.widget.ImageView
 import android.widget.TextSwitcher
+import android.R
+
+import android.media.MediaPlayer
+import android.view.View
+import androidx.fragment.app.FragmentActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -34,6 +39,9 @@ class MainActivity : AppCompatActivity() {
     var S : Float = ((sec.format(t)).toFloat()).toFloat()
 
     var timeFormatted: String = format.format(t)
+
+    var mp: MediaPlayer = MediaPlayer()
+
 
 
     var newTime = timeFormatted
@@ -65,21 +73,29 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
+
+
+
         if(H != lastH){
+
+
             animateHands(hourHand,(H-lastH) * 30,ValueAnimator.ofFloat(hourHand.rotation),1F,900)
             lastH = H
         }
 
         if(M != lastM) {
+
             animateHands(minHand, (M-lastM) * 6, ValueAnimator.ofFloat(minHand.rotation),1F,600)
             lastM = M
         }
 
         if(S != lastS) {
+//            mp.start()
             if(lastS == 59F && S == 0F) {
-                animateHands(secHand, 6F, ValueAnimator.ofFloat(secHand.rotation), 1F, 500)
+                animateHands(secHand, 6F, ValueAnimator.ofFloat(secHand.rotation), -2F, 100)
             }else{
-                animateHands(secHand, (S - lastS) * 6, ValueAnimator.ofFloat(secHand.rotation), 1F, 500)
+                animateHands(secHand, (S - lastS) * 6, ValueAnimator.ofFloat(secHand.rotation), -2F, 100)
 
             }
             lastS = S
@@ -91,7 +107,7 @@ class MainActivity : AppCompatActivity() {
 
         updateHands()
         if (started) {
-            start(500)
+            start(100)
         }
     }
 
@@ -103,6 +119,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(biff.project.R.layout.activity_main)
 
         val targetW = findViewById<ImageView>(biff.project.R.id.Circle).getLayoutParams().width
+
+        mp = MediaPlayer.create(this,biff.project.R.raw.sound)
+        mp.setVolume(0.8F,0.8F)
 
         H = 0F
         M = 0F
@@ -169,6 +188,7 @@ class MainActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         stop()
+        mp.release()
     }
 
     override fun onResume() {

@@ -6,11 +6,9 @@ import android.widget.TextView
 import java.text.SimpleDateFormat
 import java.util.*
 import android.os.Handler
-import android.view.View
-import android.view.ViewGroup
 import android.view.animation.*
 import android.widget.ImageView
-import androidx.constraintlayout.widget.ConstraintLayout
+import android.widget.TextSwitcher
 
 
 class MainActivity : AppCompatActivity() {
@@ -35,6 +33,11 @@ class MainActivity : AppCompatActivity() {
     var sec = SimpleDateFormat("ss")
     var S : Float = ((sec.format(t)).toFloat()).toFloat()
 
+    var timeFormatted: String = format.format(t)
+
+
+    var newTime = timeFormatted
+    var oldTime: String = ""
     private val runnable = Runnable {
         var hourHand : ImageView = findViewById<ImageView>(biff.project.R.id.HourHand)
         var minHand : ImageView = findViewById<ImageView>(biff.project.R.id.MinuteHand)
@@ -44,34 +47,51 @@ class MainActivity : AppCompatActivity() {
 
         currentTime = Calendar.getInstance()
         t = currentTime.time
-        var timeFormatted: String = format.format(t)
-        findViewById<TextView>(biff.project.R.id.clock).text = timeFormatted
+        timeFormatted = format.format(t)
+
+        val switcher = findViewById<TextSwitcher>(biff.project.R.id.Switcher)
+
+        switcher.setInAnimation(this,biff.project.R.anim.clock_in)
+        switcher.setOutAnimation(this,biff.project.R.anim.clock_out)
+
+
+
+
+        switcher.setText(timeFormatted)
+
+
 
         updateTimes()
 
 
-        if(H > lastH){
-            lastH = H
 
-            animateHands(hourHand,30,ValueAnimator.ofFloat(hourHand.rotation),3F,900)
+        if(H != lastH){
+            animateHands(hourHand,(H-lastH) * 30,ValueAnimator.ofFloat(hourHand.rotation),1F,900)
+            lastH = H
         }
 
         if(M != lastM) {
+            animateHands(minHand, (M-lastM) * 6, ValueAnimator.ofFloat(minHand.rotation),1F,600)
             lastM = M
-
-            animateHands(minHand, 6, ValueAnimator.ofFloat(minHand.rotation),2F,600)
         }
 
         if(S != lastS) {
+            if(lastS == 59F && S == 0F) {
+                animateHands(secHand, 6F, ValueAnimator.ofFloat(secHand.rotation), 1F, 500)
+            }else{
+                animateHands(secHand, (S - lastS) * 6, ValueAnimator.ofFloat(secHand.rotation), 1F, 500)
+
+            }
             lastS = S
-            animateHands(secHand,6,ValueAnimator.ofFloat(secHand.rotation),3F,50)
+
         }
 
 
-        updateHands()
 
+
+        updateHands()
         if (started) {
-            start(100)
+            start(500)
         }
     }
 
@@ -109,7 +129,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun animateHands(view: ImageView , increment : Int, animator : ValueAnimator, spring : Float, duration : Long){
+    private fun animateHands(view: ImageView, increment: Float, animator: ValueAnimator, spring: Float, duration: Long){
         var SR = view.rotation
         animator.setDuration(duration)
         animator.interpolator = OvershootInterpolator(spring)
@@ -117,11 +137,14 @@ class MainActivity : AppCompatActivity() {
         animator.addUpdateListener { valAni ->
 
             val v = valAni.animatedFraction
-            view.rotation = (SR + (increment * v))
+            view.rotation = SR + (increment * v)
 
         }
         animator.start()
     }
+
+
+
 
     private fun updateTimes(){
         H = ((hour.format(t)).toFloat()).toFloat()
@@ -132,11 +155,15 @@ class MainActivity : AppCompatActivity() {
     private fun updateHands(){
 
 
-
         updateTimes()
+        lastH = H
+        lastM = M
+        lastS = S
+
         findViewById<ImageView>(biff.project.R.id.HourHand).rotation = (H * 30)
         findViewById<ImageView>(biff.project.R.id.MinuteHand).rotation = (M * 6)
         findViewById<ImageView>(biff.project.R.id.SecondHand).rotation = (S * 6)
+
     }
 
     override fun onPause() {
@@ -145,10 +172,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onResume() {
-        super.onResume()
         updateHands()
-
-        start(0)
+        super.onResume()
+        start(10)
     }
 
 

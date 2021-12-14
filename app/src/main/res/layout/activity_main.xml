@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/CL"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bck_grd"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/Circle"
+        android:layout_width="400dp"
+        android:layout_height="400dp"
+        android:alpha="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.23000002"
+        app:srcCompat="@drawable/main_circle" />
+
+    <TextView
+        android:id="@+id/clock"
+        android:layout_width="wrap_content"
+        android:layout_height="54dp"
+        android:background="#00F2F9FF"
+        android:gravity="center_horizontal|center_vertical"
+        android:letterSpacing=".4"
+        android:shadowColor="@color/black"
+        android:shadowDy="1"
+        android:shadowRadius="12"
+        android:text="00:00:00"
+        android:textAlignment="center"
+        android:textColor="@color/ClockText"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/Circle"
+        app:layout_constraintEnd_toEndOf="@+id/Circle"
+        app:layout_constraintStart_toStartOf="@+id/Circle"
+        app:layout_constraintTop_toTopOf="@+id/Circle"
+
+        />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Circle"
+        app:layout_constraintVertical_bias="0.73" />
+
+    <ImageView
+        android:id="@+id/MinuteHand"
+        android:layout_width="18dp"
+        android:layout_height="300dp"
+        android:alpha="1"
+        android:rotation="0"
+        app:layout_constraintBottom_toBottomOf="@+id/Circle"
+        app:layout_constraintEnd_toEndOf="@+id/Circle"
+        app:layout_constraintStart_toStartOf="@+id/Circle"
+        app:layout_constraintTop_toTopOf="@+id/Circle"
+        app:srcCompat="@drawable/minute_hand" />
+
+    <ImageView
+        android:id="@+id/HourHand"
+        android:layout_width="18dp"
+        android:layout_height="300dp"
+        android:alpha="1"
+        android:rotation="0"
+        app:layout_constraintBottom_toBottomOf="@+id/Circle"
+        app:layout_constraintEnd_toEndOf="@+id/Circle"
+        app:layout_constraintStart_toStartOf="@+id/Circle"
+        app:layout_constraintTop_toTopOf="@+id/Circle"
+        app:srcCompat="@drawable/hour_hand" />
+
+    <ImageView
+        android:id="@+id/SecondHand"
+        android:layout_width="50dp"
+        android:layout_height="400dp"
+        android:alpha="1"
+        android:rotation="149"
+        app:layout_constraintBottom_toBottomOf="@+id/Circle"
+        app:layout_constraintEnd_toEndOf="@+id/Circle"
+        app:layout_constraintStart_toStartOf="@+id/Circle"
+        app:layout_constraintTop_toTopOf="@+id/Circle"
+        app:srcCompat="@drawable/second_hand" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

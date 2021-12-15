@@ -4,18 +4,22 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/danci/AndroidStudioProjects/TestApplication/app/src/main/res/drawable-v21/app_widget_inner_view_background.xml" value="0.21324786324786324" />
+        <entry key="..\:/Users/danci/AndroidStudioProjects/TestApplication/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.28717948717948716" />
         <entry key="..\:/Users/danci/AndroidStudioProjects/TestApplication/app/src/main/res/drawable/Gradient.xml" value="0.29074074074074074" />
         <entry key="..\:/Users/danci/AndroidStudioProjects/TestApplication/app/src/main/res/drawable/bck_grd.xml" value="0.17708333333333334" />
         <entry key="..\:/Users/danci/AndroidStudioProjects/TestApplication/app/src/main/res/drawable/grade.xml" value="0.2552083333333333" />
         <entry key="..\:/Users/danci/AndroidStudioProjects/TestApplication/app/src/main/res/drawable/gradient.xml" value="0.2552083333333333" />
         <entry key="..\:/Users/danci/AndroidStudioProjects/TestApplication/app/src/main/res/drawable/hands.xml" value="0.75" />
         <entry key="..\:/Users/danci/AndroidStudioProjects/TestApplication/app/src/main/res/drawable/hour_hand.xml" value="0.67" />
+        <entry key="..\:/Users/danci/AndroidStudioProjects/TestApplication/app/src/main/res/drawable/ic_launcher_background.xml" value="0.28717948717948716" />
         <entry key="..\:/Users/danci/AndroidStudioProjects/TestApplication/app/src/main/res/drawable/main_circle.xml" value="0.75" />
         <entry key="..\:/Users/danci/AndroidStudioProjects/TestApplication/app/src/main/res/drawable/minute_hand.xml" value="0.67" />
         <entry key="..\:/Users/danci/AndroidStudioProjects/TestApplication/app/src/main/res/drawable/second_hand.xml" value="0.75" />
         <entry key="..\:/Users/danci/AndroidStudioProjects/TestApplication/app/src/main/res/drawable/test.xml" value="0.2552083333333333" />
-        <entry key="..\:/Users/danci/AndroidStudioProjects/TestApplication/app/src/main/res/layout/activity_main.xml" value="0.72" />
+        <entry key="..\:/Users/danci/AndroidStudioProjects/TestApplication/app/src/main/res/drawable/vertvider.xml" value="0.34145299145299146" />
+        <entry key="..\:/Users/danci/AndroidStudioProjects/TestApplication/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/danci/AndroidStudioProjects/TestApplication/app/src/main/res/layout/clock_widget.xml" value="0.536" />
+        <entry key="..\:/Users/danci/AndroidStudioProjects/TestApplication/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.34145299145299146" />
       </map>
     </option>
   </component>
@@ -24,5 +28,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.1" />
+      </ProjectState>
+    </option>
   </component>
 </project>

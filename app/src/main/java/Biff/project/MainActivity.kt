@@ -29,6 +29,12 @@ class MainActivity : AppCompatActivity() {
     var currentTime: Calendar = Calendar.getInstance()
     var t = currentTime.time
 
+    var d = SimpleDateFormat("MM-dd-yy")
+    var date : String =  d.format(t).toString()
+
+    var day = currentTime.get(Calendar.DAY_OF_WEEK)-1
+    var days = listOf("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday")
+
     var hour = SimpleDateFormat("HH")
     var H : Float = ((hour.format(t)).toFloat()).toFloat()
 
@@ -79,7 +85,8 @@ class MainActivity : AppCompatActivity() {
 
         if(H != lastH){
 
-
+            findViewById<TextView>(biff.project.R.id.date).text = date
+            findViewById<TextView>(biff.project.R.id.day).text = days[day].toString()
             animateHands(hourHand,(H-lastH) * 30,ValueAnimator.ofFloat(hourHand.rotation),1F,900)
             lastH = H
         }
@@ -105,6 +112,8 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
+
         updateHands()
         if (started) {
             start(100)
@@ -126,6 +135,11 @@ class MainActivity : AppCompatActivity() {
         H = 0F
         M = 0F
         S = 0F
+
+        findViewById<TextView>(biff.project.R.id.date).text = date.toString()
+        findViewById<TextView>(biff.project.R.id.day).text = days[day].toString()
+
+
 
         var hourHand : ImageView = findViewById<ImageView>(biff.project.R.id.HourHand)
         var minHand : ImageView = findViewById<ImageView>(biff.project.R.id.MinuteHand)
@@ -166,6 +180,10 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun updateTimes(){
+
+
+        date = d.format(t).toString()
+        day = currentTime.get(Calendar.DAY_OF_WEEK)-1
         H = ((hour.format(t)).toFloat()).toFloat()
         M = ((min.format(t)).toFloat()).toFloat()
         S = ((sec.format(t)).toFloat()).toFloat()

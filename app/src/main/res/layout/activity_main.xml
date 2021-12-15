@@ -18,8 +18,9 @@
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.23000002"
+        app:layout_constraintVertical_bias="0.17000002"
         app:srcCompat="@drawable/main_circle" />
+
     <TextSwitcher
         android:id="@+id/Switcher"
         android:layout_width="wrap_content"
@@ -28,20 +29,21 @@
         app:layout_constraintEnd_toEndOf="@+id/Circle"
         app:layout_constraintStart_toStartOf="@+id/Circle"
         app:layout_constraintTop_toTopOf="@+id/Circle">
+
         <TextView
-            android:id="@+id/clock"
+            android:id="@+id/clock3"
             android:layout_width="wrap_content"
-            android:layout_height="54dp"
+            android:layout_height="wrap_content"
             android:background="#00F2F9FF"
             android:gravity="center_horizontal|center_vertical"
-            android:letterSpacing=".4"
+            android:letterSpacing=".2"
             android:shadowColor="#000000"
             android:shadowDy="10"
             android:shadowRadius="20"
             android:text="00:00:00"
             android:textAlignment="center"
             android:textColor="@color/ClockText"
-            android:textSize="30dp"
+            android:textSize="24dp"
             app:layout_constraintBottom_toBottomOf="@+id/Circle"
             app:layout_constraintEnd_toEndOf="@+id/Circle"
             app:layout_constraintStart_toStartOf="@+id/Circle"
@@ -51,33 +53,52 @@
         <TextView
             android:id="@+id/clock2"
             android:layout_width="wrap_content"
-            android:layout_height="54dp"
+            android:layout_height="wrap_content"
             android:background="#00F2F9FF"
             android:gravity="center_horizontal|center_vertical"
-            android:letterSpacing=".4"
+            android:letterSpacing=".2"
             android:shadowColor="#000000"
             android:shadowDy="10"
             android:shadowRadius="20"
             android:text="00:00:00"
             android:textAlignment="center"
             android:textColor="@color/ClockText"
-            android:textSize="30dp"
+            android:textSize="24dp"
             app:layout_constraintBottom_toBottomOf="@+id/Circle"
             app:layout_constraintEnd_toEndOf="@+id/Circle"
             app:layout_constraintStart_toStartOf="@+id/Circle"
-            app:layout_constraintTop_toTopOf="@+id/Circle"/>
+            app:layout_constraintTop_toTopOf="@+id/Circle" />
     </TextSwitcher>
 
     <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:alpha="1"
+        android:id="@+id/weatherShadow"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:alpha=".1"
+        android:src="@drawable/breeze"
+        android:translationY="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/vertivider"
+        app:layout_constraintHorizontal_bias=".75"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Circle"
-        app:layout_constraintVertical_bias="0.73" />
+        app:layout_constraintVertical_bias=".75"
+        app:tint="#000000" />
+
+    <ImageView
+        android:id="@+id/weather"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:alpha=".5"
+        android:foregroundTint="@color/ClockText"
+        android:src="@drawable/breeze"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/vertivider"
+        app:layout_constraintHorizontal_bias=".75"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Circle"
+        app:layout_constraintVertical_bias=".75" />
+
 
     <ImageView
         android:id="@+id/MinuteHand"
@@ -114,6 +135,81 @@
         app:layout_constraintStart_toStartOf="@+id/Circle"
         app:layout_constraintTop_toTopOf="@+id/Circle"
         app:srcCompat="@drawable/second_hand" />
+
+    <ImageView
+        android:id="@+id/vertivider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Circle"
+        app:layout_constraintVertical_bias=".75"
+        app:srcCompat="@drawable/vertvider" />
+
+    <TextView
+        android:id="@+id/temp"
+        android:layout_width="wrap_content"
+        android:layout_height="54dp"
+        android:background="#00F2F9FF"
+        android:gravity="center_horizontal|center_vertical"
+        android:letterSpacing=".2"
+        android:shadowColor="#000000"
+        android:shadowDy="10"
+        android:shadowRadius="20"
+        android:text="53°"
+        android:textAlignment="center"
+        android:textColor="@color/ClockText"
+        android:textSize="30dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias=".25"
+        app:layout_constraintStart_toEndOf="@+id/vertivider"
+        app:layout_constraintTop_toBottomOf="@+id/Circle"
+        app:layout_constraintVertical_bias="0.75" />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#00F2F9FF"
+        android:gravity="center_horizontal|center_vertical"
+        android:letterSpacing=".2"
+        android:shadowColor="#000000"
+        android:shadowDy="10"
+        android:shadowRadius="20"
+        android:text="12-14-21"
+        android:textAlignment="center"
+        android:textColor="@color/ClockText"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/Circle"
+        app:layout_constraintEnd_toEndOf="@+id/Circle"
+        app:layout_constraintStart_toStartOf="@+id/Circle"
+
+        app:layout_constraintTop_toBottomOf="@+id/day"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#00F2F9FF"
+        android:gravity="center_horizontal|center_vertical"
+        android:letterSpacing=".3"
+        android:shadowColor="#000000"
+        android:shadowDy="10"
+        android:shadowRadius="20"
+        android:text="Monday"
+        android:textAlignment="center"
+        android:textColor="@color/ClockText"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/Circle"
+        app:layout_constraintEnd_toEndOf="@+id/Circle"
+        app:layout_constraintStart_toStartOf="@+id/Circle"
+
+        app:layout_constraintTop_toBottomOf="@+id/Switcher"
+        app:layout_constraintVertical_bias="0.16000003" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

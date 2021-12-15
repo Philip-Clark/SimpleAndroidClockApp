@@ -1,22 +1,30 @@
 package biff.project
+
+import JSONWeatherParser
+import Weather
+import WeatherHttpClient
 import android.animation.ValueAnimator
-import androidx.appcompat.app.AppCompatActivity
+import android.media.MediaPlayer
+import android.os.AsyncTask
 import android.os.Bundle
-import android.widget.TextView
-import java.text.SimpleDateFormat
-import java.util.*
 import android.os.Handler
-import android.view.animation.*
+import android.view.animation.OvershootInterpolator
 import android.widget.ImageView
 import android.widget.TextSwitcher
-import android.R
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import org.json.JSONException
+import java.text.SimpleDateFormat
+import java.util.*
 
-import android.media.MediaPlayer
-import android.view.View
-import androidx.fragment.app.FragmentActivity
 
 
-class MainActivity : AppCompatActivity() {
+
+
+
+
+
+public class MainActivity : AppCompatActivity() {
 
 
     private var started = false
@@ -47,6 +55,19 @@ class MainActivity : AppCompatActivity() {
     var timeFormatted: String = format.format(t)
 
     var mp: MediaPlayer = MediaPlayer()
+
+
+
+
+    private var cityText: TextView? = null
+    private var condDescr: TextView? = null
+    private var temp: TextView? = null
+    private var press: TextView? = null
+    private var windSpeed: TextView? = null
+    private var windDeg: TextView? = null
+    private var hum: TextView? = null
+    private var imgView: ImageView? = null
+    private var imgViewS: ImageView? = null
 
 
 
@@ -160,6 +181,17 @@ class MainActivity : AppCompatActivity() {
 
         updateHands()
 
+
+        val city = "London,UK"
+
+//        condDescr = findViewById(R.id.condDescr) as TextView?
+        temp = findViewById(biff.project.R.id.temp) as TextView?
+
+        imgView = findViewById(biff.project.R.id.weather) as ImageView?
+        imgViewS = findViewById(biff.project.R.id.weatherShadow) as ImageView?
+        val task = JSONWeatherTask()
+        task.execute("London,UK")
+
     }
 
     private fun animateHands(view: ImageView, increment: Float, animator: ValueAnimator, spring: Float, duration: Long){
@@ -226,6 +258,74 @@ class MainActivity : AppCompatActivity() {
         started = true
         handler.postDelayed(runnable, t)
     }
+
+
+
+
+    private inner class JSONWeatherTask : AsyncTask<String?, Void?, Weather>() {
+        protected override fun doInBackground(vararg p0: String?): Weather? {
+            var weather = Weather()
+
+            val data = WeatherHttpClient().getWeatherData("London,UK")
+            println(data)
+
+            try {
+                weather = JSONWeatherParser.getWeather(data)
+
+            } catch (e: JSONException) {
+                e.printStackTrace()
+            }
+            return weather
+        }
+
+        override fun onPostExecute(weather: Weather) {
+            super.onPostExecute(weather)
+
+            displayIcon(weather.currentCondition.icon.toString())
+
+//            cityText!!.text = weather.location?.city + "," + weather.location?.country
+//            condDescr!!.text =
+//                weather.currentCondition.condition + "(" + weather.currentCondition.descr + ")"
+            temp!!.text = "" + Math.round(weather.temperature.temp - 273.15) + "°C"
+//            hum!!.text = "" + weather.currentCondition.humidity + "%"
+//            press!!.text = "" + weather.currentCondition.pressure + " hPa"
+//            windSpeed!!.text = "" + weather.wind.speed + " mps"
+//            windDeg!!.text = "" + weather.wind.deg + "�"
+        }
+    }
+fun displayIcon(code : String){
+    var icon : Int = biff.project.R.drawable.sun
+    
+    when (code) {
+        "01n" -> icon = biff.project.R.drawable.sun
+        "01n" -> icon = biff.project.R.drawable.moon
+        "02d" -> icon = R.drawable.cloud_sun
+        "02n" -> icon = R.drawable.cloud_sun
+        "03d" -> icon = R.drawable.cloud_sun
+        "03n" -> icon = R.drawable.cloud_sun
+        "04d" -> icon = R.drawable.cloud
+        "04n" -> icon = R.drawable.cloud
+        "09d" -> icon = R.drawable.rain_sun
+        "09n" -> icon = R.drawable.rain_sun
+        "10d" -> icon = R.drawable.rain
+        "10n" -> icon = R.drawable.rain
+        "11d" -> icon = R.drawable.storm
+        "11n" -> icon = R.drawable.storm
+        "13d" -> icon = R.drawable.rain
+        "13n" -> icon = R.drawable.rain
+        "50d" -> icon = R.drawable.wind
+        "50n" -> icon = R.drawable.wind
+        "unknown" -> icon = R.drawable.sun
+
+
+    }
+    imgView!!.setImageResource(icon)
+    imgViewS!!.setImageResource(icon)
+
+}
+    
+
+
 
 
 

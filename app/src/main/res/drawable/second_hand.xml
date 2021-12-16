@@ -9,7 +9,7 @@
                 android:right="8dp"
                 android:top="20dp">
                 <shape>
-                    <solid android:color="@color/HandStick"></solid>
+                    <solid android:color="@color/HandStick" />
                     <size
                         android:width="1dp"
                         android:height="100dp"/>

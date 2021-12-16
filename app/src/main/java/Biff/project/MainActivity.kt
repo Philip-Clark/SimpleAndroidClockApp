@@ -1,3 +1,5 @@
+@file:Suppress("RemoveExplicitTypeArguments")
+
 package biff.project
 
 import android.Manifest
@@ -62,9 +64,9 @@ class MainActivity : AppCompatActivity() {
     private val locHandler = locationHandler()
 
     private val runnable = Runnable {
-        val hourHand : ImageView = findViewById<ImageView>(id.HourHand)
-        val minHand : ImageView = findViewById<ImageView>(id.MinuteHand)
-        val secHand : ImageView =findViewById<ImageView>(id.SecondHand)
+        val hourHand : ImageView = findViewById(id.HourHand)
+        val minHand : ImageView = findViewById(id.MinuteHand)
+        val secHand : ImageView =findViewById(id.SecondHand)
 
 
 
@@ -134,14 +136,14 @@ class MainActivity : AppCompatActivity() {
         findViewById<TextView>(id.date).text = date
         findViewById<TextView>(id.day).text = days[day]
 
-        switcher = findViewById<TextSwitcher>(id.Switcher)
+        switcher = findViewById(id.Switcher)
 
         switcher!!.setInAnimation(this,anim.clock_in)
         switcher!!.setOutAnimation(this,anim.clock_out)
 
-        val hourHand : ImageView = findViewById<ImageView>(id.HourHand)
-        val minHand : ImageView = findViewById<ImageView>(id.MinuteHand)
-        val secHand : ImageView =findViewById<ImageView>(id.SecondHand)
+        val hourHand : ImageView = findViewById(id.HourHand)
+        val minHand : ImageView = findViewById(id.MinuteHand)
+        val secHand : ImageView =findViewById(id.SecondHand)
 
         hourHand.layoutParams.width = targetW
         hourHand.layoutParams.height = targetW
@@ -158,10 +160,10 @@ class MainActivity : AppCompatActivity() {
 
         updateHands()
 
-        temp = findViewById<TextView>(id.temp)
+        temp = findViewById(id.temp)
 
-        imgView = findViewById<ImageView>(id.weather)
-        imgViewS = findViewById<ImageView>(id.weatherShadow)
+        imgView = findViewById(id.weather)
+        imgViewS = findViewById(id.weatherShadow)
 
 
 

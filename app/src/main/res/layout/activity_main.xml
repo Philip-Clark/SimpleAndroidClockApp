@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/CL"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bck_grd"
@@ -19,7 +18,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.17000002"
-        app:srcCompat="@drawable/main_circle" />
+        app:srcCompat="@drawable/main_circle"
+        android:contentDescription="TODO" />
 
     <TextSwitcher
         android:id="@+id/Switcher"
@@ -31,7 +31,6 @@
         app:layout_constraintTop_toTopOf="@+id/Circle">
 
         <TextView
-            android:id="@+id/clock3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#00F2F9FF"
@@ -43,7 +42,7 @@
             android:text="00:00:00"
             android:textAlignment="center"
             android:textColor="@color/ClockText"
-            android:textSize="24dp"
+            android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="@+id/Circle"
             app:layout_constraintEnd_toEndOf="@+id/Circle"
             app:layout_constraintStart_toStartOf="@+id/Circle"
@@ -51,7 +50,6 @@
             app:layout_constraintTop_toTopOf="@+id/Circle" />
 
         <TextView
-            android:id="@+id/clock2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#00F2F9FF"
@@ -63,7 +61,7 @@
             android:text="00:00:00"
             android:textAlignment="center"
             android:textColor="@color/ClockText"
-            android:textSize="24dp"
+            android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="@+id/Circle"
             app:layout_constraintEnd_toEndOf="@+id/Circle"
             app:layout_constraintStart_toStartOf="@+id/Circle"
@@ -83,7 +81,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Circle"
         app:layout_constraintVertical_bias=".75"
-        app:tint="#000000" />
+        app:tint="#000000"
+        android:contentDescription="TODO" />
 
     <ImageView
         android:id="@+id/weather"
@@ -98,7 +97,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Circle"
         app:layout_constraintVertical_bias=".75"
-        app:tint="#fff" />
+        app:tint="#fff"
+        android:contentDescription="TODO" />
 
 
     <ImageView
@@ -111,7 +111,8 @@
         app:layout_constraintEnd_toEndOf="@+id/Circle"
         app:layout_constraintStart_toStartOf="@+id/Circle"
         app:layout_constraintTop_toTopOf="@+id/Circle"
-        app:srcCompat="@drawable/minute_hand" />
+        app:srcCompat="@drawable/minute_hand"
+        tools:ignore="ContentDescription" />
 
     <ImageView
         android:id="@+id/HourHand"
@@ -123,7 +124,8 @@
         app:layout_constraintEnd_toEndOf="@+id/Circle"
         app:layout_constraintStart_toStartOf="@+id/Circle"
         app:layout_constraintTop_toTopOf="@+id/Circle"
-        app:srcCompat="@drawable/hour_hand" />
+        app:srcCompat="@drawable/hour_hand"
+        tools:ignore="ContentDescription" />
 
     <ImageView
         android:id="@+id/SecondHand"
@@ -135,7 +137,8 @@
         app:layout_constraintEnd_toEndOf="@+id/Circle"
         app:layout_constraintStart_toStartOf="@+id/Circle"
         app:layout_constraintTop_toTopOf="@+id/Circle"
-        app:srcCompat="@drawable/second_hand" />
+        app:srcCompat="@drawable/second_hand"
+        tools:ignore="ContentDescription" />
 
     <ImageView
         android:id="@+id/vertivider"
@@ -146,7 +149,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Circle"
         app:layout_constraintVertical_bias=".75"
-        app:srcCompat="@drawable/vertvider" />
+        app:srcCompat="@drawable/vertvider"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/temp"
@@ -161,7 +165,7 @@
         android:text="53°"
         android:textAlignment="center"
         android:textColor="@color/ClockText"
-        android:textSize="30dp"
+        android:textSize="30sp"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -183,7 +187,7 @@
         android:text="12-14-21"
         android:textAlignment="center"
         android:textColor="@color/ClockText"
-        android:textSize="12dp"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/Circle"
         app:layout_constraintEnd_toEndOf="@+id/Circle"
         app:layout_constraintStart_toStartOf="@+id/Circle"
@@ -204,7 +208,7 @@
         android:text="Monday"
         android:textAlignment="center"
         android:textColor="@color/ClockText"
-        android:textSize="12dp"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/Circle"
         app:layout_constraintEnd_toEndOf="@+id/Circle"
         app:layout_constraintStart_toStartOf="@+id/Circle"

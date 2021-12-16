@@ -1,136 +1,112 @@
 package biff.project
 
-import JSONWeatherParser
-import Weather
-import WeatherHttpClient
+import android.Manifest
 import android.animation.ValueAnimator
-import android.media.MediaPlayer
+import android.annotation.SuppressLint
 import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Handler
-import android.view.View
 import android.view.animation.OvershootInterpolator
 import android.widget.ImageView
 import android.widget.TextSwitcher
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import biff.project.R.*
+import biff.project.R.drawable.*
 import org.json.JSONException
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.roundToInt
 
-
-public class MainActivity : AppCompatActivity() {
+@SuppressLint("SimpleDateFormat")
+class MainActivity : AppCompatActivity() {
 
 
     private var started = false
     private val handler = Handler()
-    private var format = SimpleDateFormat("h:mm:ss")
-    private var lastH : Float = 0F;
-    private var lastM : Float = 0F;
-    private var lastS : Float = 0F;
+    private var lastH : Float = 0F
+    private var lastM : Float = 0F
+    private var lastS : Float = 0F
 
-    var currentTime: Calendar = Calendar.getInstance()
-    var t = currentTime.time
+    private var currentTime: Calendar = Calendar.getInstance()
+    private var t = currentTime.time
+    private var day = currentTime.get(Calendar.DAY_OF_WEEK)-1
 
-    var d = SimpleDateFormat("MM-dd-yy")
-    var date : String =  d.format(t).toString()
 
-    var day = currentTime.get(Calendar.DAY_OF_WEEK)-1
-    var days = listOf("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday")
-
-    var hour = SimpleDateFormat("HH")
-    var H : Float = ((hour.format(t)).toFloat()).toFloat()
-
-    var min = SimpleDateFormat("mm")
-    var M : Float = ((min.format(t)).toFloat()).toFloat()
-
-    var sec = SimpleDateFormat("ss")
-    var S : Float = ((sec.format(t)).toFloat()).toFloat()
-
-    var timeFormatted: String = format.format(t)
-
-    var mp: MediaPlayer = MediaPlayer()
+    private var date =  SimpleDateFormat("MM-dd-yy").format(t).toString()
+    private var days = listOf("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday")
+    private var hour = ((SimpleDateFormat("HH").format(t)).toFloat())
+    private var minute = ((SimpleDateFormat("mm").format(t)).toFloat())
+    private var second = ((SimpleDateFormat("ss").format(t)).toFloat())
+    private var timeFormatted: String = SimpleDateFormat("h:mm:ss").format(t)
 
 
 
 
-    private var cityText: TextView? = null
-    private var condDescr: TextView? = null
+
     private var temp: TextView? = null
-    private var press: TextView? = null
-    private var windSpeed: TextView? = null
-    private var windDeg: TextView? = null
-    private var hum: TextView? = null
     private var imgView: ImageView? = null
     private var imgViewS: ImageView? = null
 
-    var Longitude: Double = (-90..90).random().toDouble()
-    var Latitude: Double = (-90..90).random().toDouble()
+    private var weather : Weather? = null
+    var city = ""
+    private var weatherMinUpdate = 5
+    private var longitude = (-90..90).random().toDouble()
+    private var latitude = (-90..90).random().toDouble()
 
-    var newTime = timeFormatted
-    var oldTime: String = ""
+
+
+    private var switcher: TextSwitcher? = null
+
+    private val locHandler = locationHandler()
+
     private val runnable = Runnable {
-        var hourHand : ImageView = findViewById<ImageView>(biff.project.R.id.HourHand)
-        var minHand : ImageView = findViewById<ImageView>(biff.project.R.id.MinuteHand)
-        var secHand : ImageView =findViewById<ImageView>(biff.project.R.id.SecondHand)
+        val hourHand : ImageView = findViewById<ImageView>(id.HourHand)
+        val minHand : ImageView = findViewById<ImageView>(id.MinuteHand)
+        val secHand : ImageView =findViewById<ImageView>(id.SecondHand)
 
 
 
         currentTime = Calendar.getInstance()
         t = currentTime.time
-        timeFormatted = format.format(t)
+        timeFormatted = SimpleDateFormat("h:mm:ss").format(t)
 
-        val switcher = findViewById<TextSwitcher>(biff.project.R.id.Switcher)
-
-        switcher.setInAnimation(this,biff.project.R.anim.clock_in)
-        switcher.setOutAnimation(this,biff.project.R.anim.clock_out)
-
-
-
-
-        switcher.setText(timeFormatted)
-
-
+        
 
         updateTimes()
+        
+        switcher!!.setText(timeFormatted)
+        
+        if(hour != lastH){
 
-
-
-
-
-
-
-        if(H != lastH){
-
-            findViewById<TextView>(biff.project.R.id.date).text = date
-            findViewById<TextView>(biff.project.R.id.day).text = days[day].toString()
-            animateHands(hourHand,(H-lastH) * 30,ValueAnimator.ofFloat(hourHand.rotation),1F,900)
-            lastH = H
+            findViewById<TextView>(id.date).text = date
+            findViewById<TextView>(id.day).text = days[day]
+            animateHands(hourHand,(hour-lastH) * 30,ValueAnimator.ofFloat(hourHand.rotation),1F,900)
+            lastH = hour
         }
 
-        if(M != lastM) {
-
-            animateHands(minHand, (M-lastM) * 6, ValueAnimator.ofFloat(minHand.rotation),1F,600)
-            lastM = M
-        }
-
-        if(S != lastS) {
-//            mp.start()
-            if(lastS == 59F && S == 0F) {
-                animateHands(secHand, 6F, ValueAnimator.ofFloat(secHand.rotation), -2F, 100)
-            }else{
-                animateHands(secHand, (S - lastS) * 6, ValueAnimator.ofFloat(secHand.rotation), -2F, 100)
+        if(minute != lastM) {
+            weatherMinUpdate--
+            if(weatherMinUpdate == 0){
+                weatherMinUpdate = 5
+                updateWeather()
 
             }
-            lastS = S
-
+            animateHands(minHand, (minute-lastM) * 6, ValueAnimator.ofFloat(minHand.rotation),1F,600)
+            lastM = minute
         }
 
+        if(second != lastS) {
+            if(lastS == 59F && second == 0F) {
+                animateHands(secHand, 6F, ValueAnimator.ofFloat(secHand.rotation), -2F, 100)
+            }else{
+                animateHands(secHand, (second - lastS) * 6, ValueAnimator.ofFloat(secHand.rotation), -2F, 100)
 
+            }
+            lastS = second
 
-
-
+        }
 
         updateHands()
         if (started) {
@@ -139,149 +115,182 @@ public class MainActivity : AppCompatActivity() {
     }
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?)
+    {
 
 
         super.onCreate(savedInstanceState)
-        setContentView(biff.project.R.layout.activity_main)
+        setContentView(layout.activity_main)
 
-        val targetW = findViewById<ImageView>(biff.project.R.id.Circle).getLayoutParams().width
+        val targetW = findViewById<ImageView>(id.Circle).layoutParams.width
 
-        mp = MediaPlayer.create(this,biff.project.R.raw.sound)
-        mp.setVolume(0.8F,0.8F)
 
-        H = 0F
-        M = 0F
-        S = 0F
+        hour = 0F
+        minute = 0F
+        second = 0F
 
 
 
-        findViewById<TextView>(biff.project.R.id.date).text = date.toString()
-        findViewById<TextView>(biff.project.R.id.day).text = days[day].toString()
+        findViewById<TextView>(id.date).text = date
+        findViewById<TextView>(id.day).text = days[day]
 
+        switcher = findViewById<TextSwitcher>(id.Switcher)
 
+        switcher!!.setInAnimation(this,anim.clock_in)
+        switcher!!.setOutAnimation(this,anim.clock_out)
 
-        var hourHand : ImageView = findViewById<ImageView>(biff.project.R.id.HourHand)
-        var minHand : ImageView = findViewById<ImageView>(biff.project.R.id.MinuteHand)
-        var secHand : ImageView =findViewById<ImageView>(biff.project.R.id.SecondHand)
+        val hourHand : ImageView = findViewById<ImageView>(id.HourHand)
+        val minHand : ImageView = findViewById<ImageView>(id.MinuteHand)
+        val secHand : ImageView =findViewById<ImageView>(id.SecondHand)
 
-        hourHand.getLayoutParams().width = targetW
-        hourHand.getLayoutParams().height = targetW
+        hourHand.layoutParams.width = targetW
+        hourHand.layoutParams.height = targetW
         hourHand.requestLayout()
 
-        minHand.getLayoutParams().width = targetW
-        minHand.getLayoutParams().height = targetW
+        minHand.layoutParams.width = targetW
+        minHand.layoutParams.height = targetW
 
-        minHand.requestLayout();
+        minHand.requestLayout()
 
-        secHand.getLayoutParams().width = targetW
-        secHand.getLayoutParams().height = targetW
-        secHand.requestLayout();
+        secHand.layoutParams.width = targetW
+        secHand.layoutParams.height = targetW
+        secHand.requestLayout()
 
         updateHands()
 
-//        condDescr = findViewById(R.id.condDescr) as TextView?
-        temp = findViewById(biff.project.R.id.temp) as TextView?
+        temp = findViewById<TextView>(id.temp)
 
-        imgView = findViewById(biff.project.R.id.weather) as ImageView?
-        imgViewS = findViewById(biff.project.R.id.weatherShadow) as ImageView?
-
-
-        val task = JSONWeatherTask()
-        task.execute("")
-
-        findViewById<ImageView>(biff.project.R.id.weather).setOnClickListener(View.OnClickListener {
-
-            Longitude = (-90..90).random().toDouble()
-            Latitude = (-90..90).random().toDouble()
-
-            val task = JSONWeatherTask()
-            task.execute("")})
+        imgView = findViewById<ImageView>(id.weather)
+        imgViewS = findViewById<ImageView>(id.weatherShadow)
 
 
 
+        ActivityCompat.requestPermissions(this, (arrayOf({ Manifest.permission.ACCESS_FINE_LOCATION }.toString())), 1)
+
+
+
+
+        updateWeather()
+
+
+
+        findViewById<ImageView>(id.weather).setOnClickListener{ updateWeather() }
 
 
     }
 
 
-    
-    
-    private fun animateHands(view: ImageView, increment: Float, animator: ValueAnimator, spring: Float, duration: Long){
-        var SR = view.rotation
-        animator.setDuration(duration)
+
+
+    private fun animateHands(view: ImageView, rotationAmount: Float, animator: ValueAnimator, spring: Float, duration: Long)
+    {
+        val currentRotation = view.rotation
+        animator.duration = duration
         animator.interpolator = OvershootInterpolator(spring)
 
-        animator.addUpdateListener { valAni ->
 
+        animator.addUpdateListener{ valAni ->
             val v = valAni.animatedFraction
-            view.rotation = SR + (increment * v)
-
+            view.rotation = currentRotation + (rotationAmount * v)
         }
+
+
         animator.start()
+
+
     }
 
 
+    private fun updateWeather()
+    {
+
+        locHandler.getWeatherAtLocation(this)
+        longitude = locHandler.longitude
+        latitude = locHandler.latitude
+        val task = JSONWeatherTask()
+        task.execute()
+
+    }
 
 
-    private fun updateTimes(){
+    private fun updateTimes()
+    {
 
-
-        date = d.format(t).toString()
         day = currentTime.get(Calendar.DAY_OF_WEEK)-1
-        H = ((hour.format(t)).toFloat()).toFloat()
-        M = ((min.format(t)).toFloat()).toFloat()
-        S = ((sec.format(t)).toFloat()).toFloat()
+        date =  SimpleDateFormat("MM-dd-yy").format(t).toString()
+        hour = ((SimpleDateFormat("HH").format(t)).toFloat())
+        minute = ((SimpleDateFormat("mm").format(t)).toFloat())
+        second = ((SimpleDateFormat("ss").format(t)).toFloat())
     }
 
-    private fun updateHands(){
-
+    private fun updateHands()
+    {
 
         updateTimes()
-        lastH = H
-        lastM = M
-        lastS = S
 
-        findViewById<ImageView>(biff.project.R.id.HourHand).rotation = (H * 30)
-        findViewById<ImageView>(biff.project.R.id.MinuteHand).rotation = (M * 6)
-        findViewById<ImageView>(biff.project.R.id.SecondHand).rotation = (S * 6)
+        lastH = hour
+        lastM = minute
+        lastS = second
+
+        findViewById<ImageView>(id.HourHand).rotation = (hour * 30)
+        findViewById<ImageView>(id.MinuteHand).rotation = (minute * 6)
+        findViewById<ImageView>(id.SecondHand).rotation = (second * 6)
 
     }
 
-    override fun onPause() {
+
+    override fun onPause()
+    {
+
         super.onPause()
         stop()
-        mp.release()
+
     }
 
-    override fun onResume() {
+
+    override fun onResume()
+    {
+
         updateHands()
         super.onResume()
+        updateWeather()
         start(10)
+
     }
 
 
 
-    private fun stop() {
+    private fun stop()
+    {
+
         started = false
         handler.removeCallbacks(runnable)
+
     }
 
-    private fun start(t : Long) {
+
+    private fun start(t : Long)
+    {
+
         started = true
         handler.postDelayed(runnable, t)
+
     }
 
 
 
 
-    private inner class JSONWeatherTask : AsyncTask<String?, Void?, Weather>() {
-        protected override fun doInBackground(vararg p0: String?): Weather? {
-            var weather = Weather()
+    @SuppressLint("StaticFieldLeak")
+    private inner class JSONWeatherTask : AsyncTask<String?, Void?, Weather>()
+    {
 
-            val data = WeatherHttpClient().getWeatherData(Longitude.toString(),Latitude.toString())
+        override fun doInBackground(vararg p0: String?): Weather?
+        {
 
-            println(data)
+            weather = Weather()
+
+            val data = WeatherHttpClient().getWeatherData(latitude.toString(),longitude.toString())
+
             try {
                 weather = JSONWeatherParser.getWeather(data)
 
@@ -291,58 +300,40 @@ public class MainActivity : AppCompatActivity() {
             return weather
         }
 
-        override fun onPostExecute(weather: Weather) {
+        @SuppressLint("SetTextI18n")
+        override fun onPostExecute(weather: Weather)
+        {
             super.onPostExecute(weather)
-            displayIcon(weather.currentCondition.icon.toString())
-            temp!!.text = "" + Math.round(weather.temperature.temp) + "°F"
-            showToast(weather.location!!.city.toString()+"  ("+Longitude.toString()+","+Latitude.toString()+")")
+            city = weather.location!!.city.toString()
+            displayIcon(weather.icon.toString())
+            temp!!.text = "" + weather.temp.roundToInt().toString() + "°F"
         }
-    }
-
-
-
-fun showToast(msg : String){
-
-    var t = Toast.makeText(
-        applicationContext, "\nLocation services Inactive\n\nClick Icon to randomize\n\nLocation = " + msg+"\n",
-        Toast.LENGTH_SHORT
-    )
-    t.setGravity(1,0,300)
-    t.show()
-}
-
-
-fun displayIcon(code : String){
-    var icon : Int = biff.project.R.drawable.sun
-    
-    when (code) {
-        "01n" -> icon = biff.project.R.drawable.sun
-        "01n" -> icon = biff.project.R.drawable.moon
-        "02d" -> icon = R.drawable.cloud_sun
-        "02n" -> icon = R.drawable.cloud_sun
-        "03d" -> icon = R.drawable.cloud_sun
-        "03n" -> icon = R.drawable.cloud_sun
-        "04d" -> icon = R.drawable.cloud
-        "04n" -> icon = R.drawable.cloud
-        "09d" -> icon = R.drawable.rain_sun
-        "09n" -> icon = R.drawable.rain_sun
-        "10d" -> icon = R.drawable.rain
-        "10n" -> icon = R.drawable.rain
-        "11d" -> icon = R.drawable.storm
-        "11n" -> icon = R.drawable.storm
-        "13d" -> icon = R.drawable.rain
-        "13n" -> icon = R.drawable.rain
-        "50d" -> icon = R.drawable.wind
-        "50n" -> icon = R.drawable.wind
-        "unknown" -> icon = R.drawable.sun
-
 
     }
-    imgView!!.setImageResource(icon)
-    imgViewS!!.setImageResource(icon)
 
-}
-    
+
+    fun displayIcon(code : String)
+    {
+
+        var icon : Int = sun
+
+        when (code.dropLast(1))
+        {
+            "01" -> icon = sun
+            "02" -> icon = cloud_sun
+            "03" -> icon = cloud_sun
+            "04" -> icon = cloud
+            "09" -> icon = rain_sun
+            "10" -> icon = rain
+            "11" -> icon = storm
+            "13" -> icon = rain
+            "50" -> icon = wind
+        }
+
+        imgView!!.setImageResource(icon)
+        imgViewS!!.setImageResource(icon)
+
+    }
 
 
 

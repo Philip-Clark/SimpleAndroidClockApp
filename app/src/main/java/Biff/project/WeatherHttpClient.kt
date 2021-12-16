@@ -1,3 +1,4 @@
+package biff.project
 
 
 import java.io.BufferedReader
@@ -9,11 +10,10 @@ import java.net.URL
 
 
 
-public class WeatherHttpClient {
+class WeatherHttpClient {
 
     companion object {
         private const val BASE_URL = "https://api.openweathermap.org/data/2.5/weather?"
-        private const val IMG_URL = "https://openweathermap.org/img/w/01n.png"
     }
 
     fun getWeatherData(lat: String,lon : String): String? {
@@ -25,7 +25,7 @@ public class WeatherHttpClient {
         try {
             con = URL("$BASE_URL&lon=$lon&lat=$lat&units=imperial&APPID=654a9571667134ff7f60cad1520fa93e").openConnection() as HttpURLConnection
             con.requestMethod = "GET"
-            con!!.doInput = true
+            con.doInput = true
             con.doOutput = true
             con.connect()
 
@@ -34,7 +34,7 @@ public class WeatherHttpClient {
             val buffer = StringBuffer()
             `is` = con.inputStream
             val br = BufferedReader(InputStreamReader(`is`))
-            var line: String? = null
+            var line: String?
             while (br.readLine().also { line = it } != null) buffer.append(
                 """
     $line

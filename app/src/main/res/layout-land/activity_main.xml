@@ -9,17 +9,17 @@
 
     <ImageView
         android:id="@+id/Circle"
-        android:layout_width="400dp"
-        android:layout_height="400dp"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
         android:alpha="1"
+        android:contentDescription="TODO"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintHorizontal_bias="0.07"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.17000002"
-        app:srcCompat="@drawable/main_circle"
-        android:contentDescription="TODO" />
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/main_circle" />
 
     <TextSwitcher
         android:id="@+id/Switcher"
@@ -74,30 +74,31 @@
         android:layout_height="50dp"
         android:alpha=".1"
         android:contentDescription="TODO"
-        android:src="@drawable/breeze"
+        android:src="@drawable/rain_sun"
         android:translationY="5dp"
         app:layout_constraintBottom_toBottomOf="@+id/weather"
         app:layout_constraintEnd_toEndOf="@+id/weather"
+        app:layout_constraintHorizontal_bias=".75"
         app:layout_constraintStart_toStartOf="@+id/weather"
         app:layout_constraintTop_toTopOf="@+id/weather"
+        app:layout_constraintVertical_bias=".75"
         app:tint="#000000" />
+
 
     <ImageView
         android:id="@+id/weather"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:alpha=".5"
+        android:contentDescription="TODO"
         android:foregroundTint="@color/ClockText"
-        android:src="@drawable/breeze"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/horivider"
-        app:layout_constraintHorizontal_bias=".75"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Circle"
-        app:layout_constraintVertical_bias=".75"
-        app:tint="#fff"
-        android:contentDescription="TODO" />
-
+        android:src="@drawable/rain_sun"
+        app:layout_constraintBottom_toTopOf="@+id/horivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/Circle"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.93"
+        app:tint="#fff" />
 
     <ImageView
         android:id="@+id/MinuteHand"
@@ -144,10 +145,9 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Circle"
-        app:layout_constraintVertical_bias=".75"
-        app:srcCompat="@drawable/vertvider"
+        app:layout_constraintStart_toEndOf="@+id/Circle"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/horivider"
         tools:ignore="ContentDescription" />
 
     <TextView
@@ -167,10 +167,10 @@
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias=".25"
-        app:layout_constraintStart_toEndOf="@+id/horivider"
-        app:layout_constraintTop_toBottomOf="@+id/Circle"
-        app:layout_constraintVertical_bias="0.75" />
+        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintStart_toEndOf="@+id/Circle"
+        app:layout_constraintTop_toBottomOf="@+id/horivider"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/date"

@@ -1,24 +1,29 @@
 
+
 import java.io.BufferedReader
 import java.io.InputStream
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
 
+
+
+
 public class WeatherHttpClient {
 
     companion object {
-        private const val BASE_URL = "https://api.openweathermap.org/data/2.5/weather?&lon=10&lat=10&APPID=654a9571667134ff7f60cad1520fa93e"
+        private const val BASE_URL = "https://api.openweathermap.org/data/2.5/weather?"
         private const val IMG_URL = "https://openweathermap.org/img/w/01n.png"
     }
 
-    fun getWeatherData(location: String): String? {
+    fun getWeatherData(lat: String,lon : String): String? {
+
 
 
         var con: HttpURLConnection? = null
         var `is`: InputStream? = null
         try {
-            con = URL(BASE_URL).openConnection() as HttpURLConnection
+            con = URL("$BASE_URL&lon=$lon&lat=$lat&units=imperial&APPID=654a9571667134ff7f60cad1520fa93e").openConnection() as HttpURLConnection
             con.requestMethod = "GET"
             con!!.doInput = true
             con.doOutput = true

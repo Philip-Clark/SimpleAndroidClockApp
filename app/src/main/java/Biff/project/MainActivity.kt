@@ -8,20 +8,16 @@ import android.media.MediaPlayer
 import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Handler
+import android.view.View
 import android.view.animation.OvershootInterpolator
 import android.widget.ImageView
 import android.widget.TextSwitcher
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import org.json.JSONException
 import java.text.SimpleDateFormat
 import java.util.*
-
-
-
-
-
-
 
 
 public class MainActivity : AppCompatActivity() {
@@ -69,7 +65,8 @@ public class MainActivity : AppCompatActivity() {
     private var imgView: ImageView? = null
     private var imgViewS: ImageView? = null
 
-
+    var Longitude: Double = (-90..90).random().toDouble()
+    var Latitude: Double = (-90..90).random().toDouble()
 
     var newTime = timeFormatted
     var oldTime: String = ""
@@ -157,6 +154,8 @@ public class MainActivity : AppCompatActivity() {
         M = 0F
         S = 0F
 
+
+
         findViewById<TextView>(biff.project.R.id.date).text = date.toString()
         findViewById<TextView>(biff.project.R.id.day).text = days[day].toString()
 
@@ -181,19 +180,33 @@ public class MainActivity : AppCompatActivity() {
 
         updateHands()
 
-
-        val city = "London,UK"
-
 //        condDescr = findViewById(R.id.condDescr) as TextView?
         temp = findViewById(biff.project.R.id.temp) as TextView?
 
         imgView = findViewById(biff.project.R.id.weather) as ImageView?
         imgViewS = findViewById(biff.project.R.id.weatherShadow) as ImageView?
+
+
         val task = JSONWeatherTask()
-        task.execute("London,UK")
+        task.execute("")
+
+        findViewById<ImageView>(biff.project.R.id.weather).setOnClickListener(View.OnClickListener {
+
+            Longitude = (-90..90).random().toDouble()
+            Latitude = (-90..90).random().toDouble()
+
+            val task = JSONWeatherTask()
+            task.execute("")})
+
+
+
+
 
     }
 
+
+    
+    
     private fun animateHands(view: ImageView, increment: Float, animator: ValueAnimator, spring: Float, duration: Long){
         var SR = view.rotation
         animator.setDuration(duration)
@@ -266,9 +279,9 @@ public class MainActivity : AppCompatActivity() {
         protected override fun doInBackground(vararg p0: String?): Weather? {
             var weather = Weather()
 
-            val data = WeatherHttpClient().getWeatherData("London,UK")
-            println(data)
+            val data = WeatherHttpClient().getWeatherData(Longitude.toString(),Latitude.toString())
 
+            println(data)
             try {
                 weather = JSONWeatherParser.getWeather(data)
 
@@ -280,19 +293,25 @@ public class MainActivity : AppCompatActivity() {
 
         override fun onPostExecute(weather: Weather) {
             super.onPostExecute(weather)
-
             displayIcon(weather.currentCondition.icon.toString())
-
-//            cityText!!.text = weather.location?.city + "," + weather.location?.country
-//            condDescr!!.text =
-//                weather.currentCondition.condition + "(" + weather.currentCondition.descr + ")"
-            temp!!.text = "" + Math.round(weather.temperature.temp - 273.15) + "°C"
-//            hum!!.text = "" + weather.currentCondition.humidity + "%"
-//            press!!.text = "" + weather.currentCondition.pressure + " hPa"
-//            windSpeed!!.text = "" + weather.wind.speed + " mps"
-//            windDeg!!.text = "" + weather.wind.deg + "�"
+            temp!!.text = "" + Math.round(weather.temperature.temp) + "°F"
+            showToast(weather.location!!.city.toString()+"  ("+Longitude.toString()+","+Latitude.toString()+")")
         }
     }
+
+
+
+fun showToast(msg : String){
+
+    var t = Toast.makeText(
+        applicationContext, "\nLocation services Inactive\n\nClick Icon to randomize\n\nLocation = " + msg+"\n",
+        Toast.LENGTH_SHORT
+    )
+    t.setGravity(1,0,300)
+    t.show()
+}
+
+
 fun displayIcon(code : String){
     var icon : Int = biff.project.R.drawable.sun
     
@@ -331,5 +350,6 @@ fun displayIcon(code : String){
 
 
 }
+
 
 

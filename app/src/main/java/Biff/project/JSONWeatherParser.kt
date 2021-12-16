@@ -42,7 +42,6 @@ public object JSONWeatherParser {
         loc.latitude = getFloat("lat", coordObj)
         loc.longitude = getFloat("lon", coordObj)
         val sysObj = getObject("sys", jObj)
-        loc.country = getString("country", sysObj)
         loc.sunrise = getInt("sunrise", sysObj).toLong()
         loc.sunset = getInt("sunset", sysObj).toLong()
         loc.city = getString("name", jObj)

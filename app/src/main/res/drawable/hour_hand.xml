@@ -18,7 +18,7 @@
 
             <!-- SHADOW -->
             <item
-                android:bottom="176dp"
+                android:bottom="195dp"
                 android:right="5dp"
                 android:left="5dp"
                 android:top="24.5dp"
@@ -41,7 +41,7 @@
 
             <!-- shadow inner -->
             <item
-                android:bottom="177dp"
+                android:bottom="196dp"
                 android:top="25.5dp"
                 android:right="6dp"
                 android:left="6dp">
@@ -63,7 +63,7 @@
 
             <!-- Main -->
             <item
-                android:bottom="178dp"
+                android:bottom="197dp"
                 android:right="7dp"
                 android:left="7dp"
                 android:top="26.5dp"
@@ -80,7 +80,7 @@
 
                     <size
                         android:width="1dp"
-                        android:height="20dp"
+                        android:height="30dp"
                         />
 
                     <corners

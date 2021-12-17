@@ -12,6 +12,7 @@ import android.view.animation.OvershootInterpolator
 import android.widget.ImageView
 import android.widget.TextSwitcher
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import biff.project.R.*
@@ -19,7 +20,6 @@ import biff.project.R.drawable.*
 import org.json.JSONException
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.math.roundToInt
 
 @SuppressLint("SimpleDateFormat")
 class MainActivity : AppCompatActivity() {
@@ -36,8 +36,8 @@ class MainActivity : AppCompatActivity() {
     private var day = currentTime.get(Calendar.DAY_OF_WEEK)-1
 
 
-    private var date =  SimpleDateFormat("MM-dd-yy").format(t).toString()
-    private var days = listOf("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday")
+    private var date =  SimpleDateFormat("MM.dd.yy").format(t).toString()
+    private var days = listOf("Sun","Mon","Tue","Wed","Thu","Fri","Sat")
     private var hour = ((SimpleDateFormat("HH").format(t)).toFloat())
     private var minute = ((SimpleDateFormat("mm").format(t)).toFloat())
     private var second = ((SimpleDateFormat("ss").format(t)).toFloat())
@@ -51,9 +51,9 @@ class MainActivity : AppCompatActivity() {
     private var imgView: ImageView? = null
     private var imgViewS: ImageView? = null
 
+
     private var weather : Weather? = null
     var city = ""
-    private var weatherMinUpdate = 5
     private var longitude = (-90..90).random().toDouble()
     private var latitude = (-90..90).random().toDouble()
 
@@ -89,12 +89,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         if(minute != lastM) {
-            weatherMinUpdate--
-            if(weatherMinUpdate == 0){
-                weatherMinUpdate = 5
-                updateWeather()
-
-            }
             animateHands(minHand, (minute-lastM) * 6, ValueAnimator.ofFloat(minHand.rotation),1F,600)
             lastM = minute
         }
@@ -294,10 +288,12 @@ class MainActivity : AppCompatActivity() {
             val data = WeatherHttpClient().getWeatherData(latitude.toString(),longitude.toString())
 
             try {
-                weather = JSONWeatherParser.getWeather(data)
+                weather = JSONWeatherParser.getWeather(data,this@MainActivity)
 
             } catch (e: JSONException) {
                 e.printStackTrace()
+            }catch (e: NullPointerException){
+                print("Error : NullPointer")
             }
             return weather
         }
@@ -306,13 +302,37 @@ class MainActivity : AppCompatActivity() {
         override fun onPostExecute(weather: Weather)
         {
             super.onPostExecute(weather)
-            city = weather.location!!.city.toString()
-            displayIcon(weather.icon.toString())
-            temp!!.text = "" + weather.temp.roundToInt().toString() + "°F"
+            try {
+                city = weather.location!!.city.toString()
+                displayIcon(weather.icon.toString())
+
+                findViewById<TextView>(id.windspeed)!!.text = weather.windspeed!!.toString() + "mph"
+                findViewById<TextView>(id.winddir)!!.text = weather.winddir!!
+                findViewById<TextView>(id.pressr)!!.text = weather.pressr!!.toString()
+
+                temp!!.text = "" + weather.temp.toInt().toString() + "°"
+            }catch (e: java.lang.NullPointerException){
+                print("Error")
+
+
+
+                findViewById<TextView>(id.windspeed)!!.alpha = 0.0f
+                findViewById<TextView>(id.winddir)!!.alpha = 0.0f
+                findViewById<TextView>(id.pressr)!!.alpha = 0.0f
+                imgView!!.alpha = 0.0f
+                imgViewS!!.alpha = 0.0f
+                temp!!.alpha = 0.0f
+                findViewById<ImageView>(id.divider).alpha = 0.0f
+
+                showErrorToast("API call limit overdrawn \nWeather unavailable")
+            }
         }
 
     }
 
+    fun showErrorToast(msg : String){
+        Toast.makeText(this,msg,Toast.LENGTH_LONG).show()
+    }
 
     fun displayIcon(code : String)
     {

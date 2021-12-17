@@ -11,7 +11,7 @@ object JSONWeatherParser {
 
         // We create out JSONObject from the data
         val jObj = JSONObject(data)
-
+        print(data)
         // We start extracting the info
         val loc = Location()
         loc.city = getString("name", jObj)

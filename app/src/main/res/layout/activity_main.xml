@@ -12,14 +12,14 @@
         android:layout_width="400dp"
         android:layout_height="400dp"
         android:alpha="1"
+        android:contentDescription="TODO"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.17000002"
-        app:srcCompat="@drawable/main_circle"
-        android:contentDescription="TODO" />
+        app:srcCompat="@drawable/main_circle" />
 
     <TextSwitcher
         android:id="@+id/Switcher"
@@ -40,6 +40,7 @@
             android:shadowDy="10"
             android:shadowRadius="20"
             android:text="00:00:00"
+            android:textStyle="bold"
             android:textAlignment="center"
             android:textColor="@color/ClockText"
             android:textSize="24sp"
@@ -59,6 +60,7 @@
             android:shadowDy="10"
             android:shadowRadius="20"
             android:text="00:00:00"
+            android:textStyle="bold"
             android:textAlignment="center"
             android:textColor="@color/ClockText"
             android:textSize="24sp"
@@ -87,6 +89,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:alpha=".5"
+        android:contentDescription="TODO"
         android:foregroundTint="@color/ClockText"
         android:src="@drawable/breeze"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -95,8 +98,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Circle"
         app:layout_constraintVertical_bias=".75"
-        app:tint="#fff"
-        android:contentDescription="TODO" />
+        app:tint="#fff" />
 
 
     <ImageView
@@ -182,16 +184,17 @@
         android:shadowColor="#000000"
         android:shadowDy="10"
         android:shadowRadius="20"
-        android:text="12-14-21"
+        android:text="12.14.21"
         android:textAlignment="center"
         android:textColor="@color/ClockText"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/Circle"
         app:layout_constraintEnd_toEndOf="@+id/Circle"
-        app:layout_constraintStart_toStartOf="@+id/Circle"
 
-        app:layout_constraintTop_toBottomOf="@+id/day"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintStart_toStartOf="@+id/Circle"
+        app:layout_constraintTop_toBottomOf="@+id/Switcher"
+        app:layout_constraintVertical_bias="0.22000003" />
 
     <TextView
         android:id="@+id/day"
@@ -203,16 +206,32 @@
         android:shadowColor="#000000"
         android:shadowDy="10"
         android:shadowRadius="20"
-        android:text="Monday"
+        android:text="M"
         android:textAlignment="center"
         android:textColor="@color/ClockText"
         android:textSize="12sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/Circle"
-        app:layout_constraintEnd_toEndOf="@+id/Circle"
-        app:layout_constraintStart_toStartOf="@+id/Circle"
+        app:layout_constraintEnd_toStartOf="@+id/date"
 
+        app:layout_constraintHorizontal_bias="0.97"
+        app:layout_constraintStart_toStartOf="@+id/Circle"
         app:layout_constraintTop_toBottomOf="@+id/Switcher"
-        app:layout_constraintVertical_bias="0.16000003" />
+        app:layout_constraintVertical_bias="0.22000003" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="83dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="196dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

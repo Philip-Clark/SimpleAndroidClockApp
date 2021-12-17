@@ -32,8 +32,9 @@
             <item>
                 <shape
                     android:shape="ring"
-                    android:thickness="5dp"
+                    android:thickness="26dp"
                     android:useLevel="false"
+                    android:innerRadius="190dp"
                     >
 
                     <size
@@ -42,8 +43,8 @@
                         />
 
                     <gradient
-                        android:startColor="#AFEDF5"
-                        android:endColor="#6F94DC"
+                        android:startColor="#186181"
+                        android:endColor="#38C2CB"
                         android:angle="270"/>
 
                 </shape>

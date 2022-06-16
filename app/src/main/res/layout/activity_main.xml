@@ -12,14 +12,15 @@
         android:layout_width="400dp"
         android:layout_height="400dp"
         android:alpha="1"
+        android:contentDescription="TODO"
+        android:rotation="-130"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.17000002"
-        app:srcCompat="@drawable/main_circle"
-        android:contentDescription="TODO" />
+        app:srcCompat="@drawable/main_circle" />
 
     <TextSwitcher
         android:id="@+id/Switcher"
@@ -43,6 +44,7 @@
             android:textAlignment="center"
             android:textColor="@color/ClockText"
             android:textSize="24sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/Circle"
             app:layout_constraintEnd_toEndOf="@+id/Circle"
             app:layout_constraintStart_toStartOf="@+id/Circle"
@@ -62,6 +64,7 @@
             android:textAlignment="center"
             android:textColor="@color/ClockText"
             android:textSize="24sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/Circle"
             app:layout_constraintEnd_toEndOf="@+id/Circle"
             app:layout_constraintStart_toStartOf="@+id/Circle"
@@ -87,16 +90,16 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:alpha=".5"
+        android:contentDescription="TODO"
         android:foregroundTint="@color/ClockText"
         android:src="@drawable/breeze"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/horivider"
-        app:layout_constraintHorizontal_bias=".75"
+        app:layout_constraintEnd_toStartOf="@+id/divider"
+        app:layout_constraintHorizontal_bias="0.91"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Circle"
         app:layout_constraintVertical_bias=".75"
-        app:tint="#fff"
-        android:contentDescription="TODO" />
+        app:tint="#fff" />
 
 
     <ImageView
@@ -139,7 +142,7 @@
         tools:ignore="ContentDescription" />
 
     <ImageView
-        android:id="@+id/horivider"
+        android:id="@+id/divider"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -160,15 +163,16 @@
         android:shadowColor="#000000"
         android:shadowDy="10"
         android:shadowRadius="20"
-        android:text="53°"
+        android:text="--°"
         android:textAlignment="center"
         android:textColor="@color/ClockText"
-        android:textSize="30sp"
+        android:textSize="20sp"
+        android:textStyle="bold"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias=".25"
-        app:layout_constraintStart_toEndOf="@+id/horivider"
+        app:layout_constraintHorizontal_bias="0.12"
+        app:layout_constraintStart_toEndOf="@+id/divider"
         app:layout_constraintTop_toBottomOf="@+id/Circle"
         app:layout_constraintVertical_bias="0.75" />
 
@@ -182,16 +186,83 @@
         android:shadowColor="#000000"
         android:shadowDy="10"
         android:shadowRadius="20"
-        android:text="12-14-21"
+        android:text="12.14.21"
+        android:textAlignment="center"
+        android:textColor="@color/ClockText2"
+        android:textSize="11sp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="@+id/Circle"
+        app:layout_constraintEnd_toEndOf="@+id/Circle"
+
+        app:layout_constraintHorizontal_bias="0.56"
+        app:layout_constraintStart_toStartOf="@+id/Circle"
+        app:layout_constraintTop_toBottomOf="@+id/Switcher"
+        app:layout_constraintVertical_bias=".225" />
+
+    <TextView
+        android:id="@+id/windspeed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#00F2F9FF"
+        android:gravity="center_horizontal|center_vertical"
+        android:letterSpacing=".2"
+        android:shadowColor="#000000"
+        android:shadowDy="10"
+        android:shadowRadius="20"
+        android:text="--mph"
+        android:textAlignment="center"
+        android:textColor="@color/ClockText2"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/Circle"
+
+        app:layout_constraintHorizontal_bias="0.48"
+        app:layout_constraintStart_toStartOf="@+id/Circle"
+        app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+    <TextView
+        android:id="@+id/pressr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#00F2F9FF"
+        android:gravity="center_horizontal|center_vertical"
+        android:letterSpacing=".2"
+        android:shadowColor="#000000"
+        android:shadowDy="10"
+        android:shadowRadius="20"
+        android:text="--.--"
         android:textAlignment="center"
         android:textColor="@color/ClockText"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/Circle"
-        app:layout_constraintEnd_toEndOf="@+id/Circle"
-        app:layout_constraintStart_toStartOf="@+id/Circle"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
 
-        app:layout_constraintTop_toBottomOf="@+id/day"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias=".05"
+        app:layout_constraintStart_toEndOf="@+id/windspeed"
+        app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+    <TextView
+        android:id="@+id/winddir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#00F2F9FF"
+        android:gravity="center_horizontal|center_vertical"
+        android:letterSpacing=".2"
+        android:shadowColor="#000000"
+        android:shadowDy="10"
+        android:shadowRadius="20"
+        android:text="--"
+        android:textAlignment="center"
+        android:textColor="@color/ClockText"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        app:layout_constraintEnd_toStartOf="@+id/windspeed"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toStartOf="@+id/Circle"
+        app:layout_constraintTop_toBottomOf="@+id/divider" />
 
     <TextView
         android:id="@+id/day"
@@ -203,16 +274,32 @@
         android:shadowColor="#000000"
         android:shadowDy="10"
         android:shadowRadius="20"
-        android:text="Monday"
+        android:text="Mon"
         android:textAlignment="center"
         android:textColor="@color/ClockText"
         android:textSize="12sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/Circle"
-        app:layout_constraintEnd_toEndOf="@+id/Circle"
-        app:layout_constraintStart_toStartOf="@+id/Circle"
+        app:layout_constraintEnd_toStartOf="@+id/date"
 
+        app:layout_constraintHorizontal_bias="0.97"
+        app:layout_constraintStart_toStartOf="@+id/Circle"
         app:layout_constraintTop_toBottomOf="@+id/Switcher"
-        app:layout_constraintVertical_bias="0.16000003" />
+        app:layout_constraintVertical_bias="0.22" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="333dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="196dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,11 +4,12 @@
     <color name="purple_700">#3D5C73</color>
     <color name="teal_200">#3D5C73</color>
     <color name="black">#3D6673</color>
-    <color name="BackGradeT">#3D5C73</color>
-    <color name="BackGradeB">#141E22</color>
+    <color name="BackGradeT">#24292B</color>
+    <color name="BackGradeB">#031118</color>
     <color name="HandStick">#00000000</color>
-    <color name="shadow1">#0D000000</color>
-    <color name="shadow2">#0D000000</color>
-    <color name="hand">#72768491</color>
+    <color name="shadow1">#1A000000</color>
+    <color name="shadow2">#26000000</color>
+    <color name="hand">#80FFFFFF</color>
     <color name="ClockText">#80FFFFFF</color>
+    <color name="ClockText2">#59FFFFFF</color>
 </resources>

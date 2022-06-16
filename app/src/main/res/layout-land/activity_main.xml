@@ -93,11 +93,11 @@
         android:contentDescription="TODO"
         android:foregroundTint="@color/ClockText"
         android:src="@drawable/rain_sun"
-        app:layout_constraintBottom_toTopOf="@+id/horivider"
+        app:layout_constraintBottom_toTopOf="@+id/divider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/Circle"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.93"
+        app:layout_constraintVertical_bias="0.9"
         app:tint="#fff" />
 
     <ImageView
@@ -140,15 +140,83 @@
         tools:ignore="ContentDescription" />
 
     <ImageView
-        android:id="@+id/horivider"
+        android:id="@+id/divider"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/Circle"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.41000003"
         app:srcCompat="@drawable/horivider"
         tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/windspeed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#00F2F9FF"
+        android:gravity="center_horizontal|center_vertical"
+        android:letterSpacing=".2"
+        android:shadowColor="#000000"
+        android:shadowDy="10"
+        android:shadowRadius="20"
+        android:text="--mph"
+        android:textAlignment="center"
+        android:textColor="@color/ClockText2"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.54"
+        app:layout_constraintStart_toEndOf="@+id/Circle"
+        app:layout_constraintTop_toBottomOf="@+id/temp"
+        app:layout_constraintVertical_bias="0.110000014" />
+
+    <TextView
+        android:id="@+id/pressr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#00F2F9FF"
+        android:gravity="center_horizontal|center_vertical"
+        android:letterSpacing=".2"
+        android:shadowColor="#000000"
+        android:shadowDy="10"
+        android:shadowRadius="20"
+        android:text="--.--"
+        android:textAlignment="center"
+        android:textColor="@color/ClockText"
+        android:textSize="12sp"
+        android:textStyle="bold"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/Circle"
+        app:layout_constraintTop_toBottomOf="@+id/windspeed"
+        app:layout_constraintVertical_bias="0.110000014" />
+
+    <TextView
+        android:id="@+id/winddir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#00F2F9FF"
+        android:gravity="center_horizontal|center_vertical"
+        android:letterSpacing=".2"
+        android:shadowColor="#000000"
+        android:shadowDy="10"
+        android:shadowRadius="20"
+        android:text="--"
+        android:textAlignment="center"
+        android:textColor="@color/ClockText"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        app:layout_constraintEnd_toStartOf="@+id/windspeed"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toEndOf="@+id/Circle"
+        app:layout_constraintTop_toBottomOf="@+id/temp"
+        app:layout_constraintVertical_bias="0.110000014" />
 
     <TextView
         android:id="@+id/temp"
@@ -167,9 +235,8 @@
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toEndOf="@+id/Circle"
-        app:layout_constraintTop_toBottomOf="@+id/horivider"
+        app:layout_constraintTop_toBottomOf="@+id/divider"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView

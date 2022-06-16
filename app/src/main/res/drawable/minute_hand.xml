@@ -18,10 +18,10 @@
 
             <!-- SHADOW -->
             <item
-                android:bottom="176dp"
+                android:bottom="195dp"
                 android:right="5dp"
                 android:left="5dp"
-                android:top="27dp"
+                android:top="26dp"
                 >
                 <shape
                     android:shape="rectangle"
@@ -41,8 +41,8 @@
 
             <!-- shadow inner -->
             <item
-                android:bottom="177dp"
-                android:top="28dp"
+                android:bottom="196dp"
+                android:top="27dp"
                 android:right="6dp"
                 android:left="6dp">
                 <shape android:layout_height="wrap_content" android:shape="rectangle" android:useLevel="false">
@@ -56,10 +56,10 @@
 
             <!-- Main -->
             <item
-                android:bottom="178dp"
+                android:bottom="197dp"
                 android:right="7dp"
                 android:left="7dp"
-                android:top="29dp"
+                android:top="28dp"
                 >
 
                 <shape
@@ -73,7 +73,7 @@
 
                     <size
                         android:width="1dp"
-                        android:height="15dp"
+                        android:height="25dp"
                         />
 
                     <corners

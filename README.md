@@ -1,4 +1,4 @@
-# SimpleAndroidClockApp
+# Simple Android Clock App
 
 
 A simple clock app made to brush up on some android skills.

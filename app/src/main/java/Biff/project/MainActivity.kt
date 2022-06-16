@@ -298,7 +298,7 @@ class MainActivity : AppCompatActivity() {
             return weather
         }
 
-        @SuppressLint("SetTextI18n")
+        @SuppressLint("SetTextI18n", "CutPasteId")
         override fun onPostExecute(weather: Weather)
         {
             super.onPostExecute(weather)
@@ -306,9 +306,9 @@ class MainActivity : AppCompatActivity() {
                 city = weather.location!!.city.toString()
                 displayIcon(weather.icon.toString())
 
-                findViewById<TextView>(id.windspeed)!!.text = weather.windspeed!!.toString() + "mph"
-                findViewById<TextView>(id.winddir)!!.text = weather.winddir!!
-                findViewById<TextView>(id.pressr)!!.text = weather.pressr!!.toString()
+                findViewById<TextView>(id.windspeed)!!.text = weather.windspeed.toString() + "mph"
+                findViewById<TextView>(id.winddir)!!.text = weather.winddir
+                findViewById<TextView>(id.pressr)!!.text = weather.pressr.toString()
 
                 temp!!.text = "" + weather.temp.toInt().toString() + "°"
             }catch (e: java.lang.NullPointerException){
